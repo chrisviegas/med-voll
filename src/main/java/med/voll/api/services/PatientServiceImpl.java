@@ -1,6 +1,7 @@
 package med.voll.api.services;
 
 import med.voll.api.dto.PatientCreateDTO;
+import med.voll.api.entities.Doctor;
 import med.voll.api.entities.Patient;
 import med.voll.api.repositories.PatientRepository;
 import org.springframework.context.annotation.Primary;
@@ -19,7 +20,8 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public void create(PatientCreateDTO dto) {
-        repository.save(new Patient(dto));
+    public PatientCreateDTO create(PatientCreateDTO dto) {
+        Patient patient = repository.save(new Patient(dto));
+        return new PatientCreateDTO(patient);
     }
 }

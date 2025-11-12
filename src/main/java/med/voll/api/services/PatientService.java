@@ -4,5 +4,5 @@ import med.voll.api.dto.PatientCreateDTO;
 
 public interface PatientService {
 
-    void create(PatientCreateDTO dto);
+    PatientCreateDTO create(PatientCreateDTO dto);
 }

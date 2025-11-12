@@ -13,16 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/patients")
 public class PatientController {
 
-    private final PatientRepository repository;
     private final PatientService service;
 
-    public PatientController(PatientRepository repository, PatientService service) {
-        this.repository = repository;
+    public PatientController(PatientService service) {
         this.service = service;
     }
 
     @PostMapping("/register")
-    public void create(@RequestBody @Valid PatientCreateDTO dto) {
-        service.create(dto);
+    public PatientCreateDTO create(@RequestBody @Valid PatientCreateDTO dto) {
+        return service.create(dto);
     }
 }
