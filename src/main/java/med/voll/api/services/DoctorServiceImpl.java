@@ -4,20 +4,23 @@ import med.voll.api.dto.DoctorCreateDTO;
 import med.voll.api.dto.DoctorGetMinDTO;
 import med.voll.api.entities.Doctor;
 import med.voll.api.repositories.DoctorRepository;
+import med.voll.api.repositories.DoctorRepositoryPagination;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Primary
 public class DoctorServiceImpl implements DoctorService {
 
+    private final DoctorRepositoryPagination repositoryPagination;
     private final DoctorRepository repository;
 
-    public DoctorServiceImpl(DoctorRepository doctorRepository) {
-        this.repository = doctorRepository;
+    public DoctorServiceImpl(DoctorRepositoryPagination repositoryPagination, DoctorRepository repository) {
+        this.repositoryPagination = repositoryPagination;
+        this.repository = repository;
     }
 
     @Transactional
@@ -29,7 +32,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<DoctorGetMinDTO> getAll() {
-        return repository.findAll().stream().map(DoctorGetMinDTO::new).toList();
+    public Page<DoctorGetMinDTO> getAll(int page, int size) {
+        return repositoryPagination.findAll(PageRequest.of(page, size)).map(DoctorGetMinDTO::new);
     }
 }

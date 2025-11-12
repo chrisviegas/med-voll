@@ -2,12 +2,11 @@ package med.voll.api.services;
 
 import med.voll.api.dto.DoctorCreateDTO;
 import med.voll.api.dto.DoctorGetMinDTO;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface DoctorService {
 
     DoctorCreateDTO create(DoctorCreateDTO doctorCreateDTO);
 
-    List<DoctorGetMinDTO> getAll();
+    Page<DoctorGetMinDTO> getAll(int page, int size);
 }
