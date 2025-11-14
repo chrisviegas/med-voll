@@ -28,4 +28,5 @@ public class DoctorController {
                                         @RequestParam(defaultValue= "10") int size, Sort sort) {
         return service.getAll(page, size, sort);
     }
+
 }
