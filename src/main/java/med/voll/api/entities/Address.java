@@ -1,6 +1,5 @@
 package med.voll.api.entities;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.Valid;
@@ -8,11 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import med.voll.api.dto.AddressDTO;
 
 @Embeddable
 @Valid
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {

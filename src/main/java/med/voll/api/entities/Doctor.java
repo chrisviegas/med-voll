@@ -5,16 +5,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import med.voll.api.dto.DoctorCreateDTO;
+import lombok.*;
+import med.voll.api.dto.DoctorDTO;
 import med.voll.api.enums.DoctorSpecialtyEnum;
 
 @Entity
 @Table(name = "tb_doctor")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -22,6 +20,7 @@ public class Doctor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @NotBlank
@@ -50,15 +49,15 @@ public class Doctor {
     @Column(nullable = false)
     private Address address;
 
-    public Doctor(DoctorCreateDTO doctorCreateDTO) {
-        this.name = doctorCreateDTO.name();
-        this.email = doctorCreateDTO.email();
-        this.phone = doctorCreateDTO.phone();
-        this.crm = doctorCreateDTO.crm();
-        this.doctorSpecialtyEnum = doctorCreateDTO.specialty();
+    public Doctor(DoctorDTO doctorDTO) {
+        this.name = doctorDTO.name();
+        this.email = doctorDTO.email();
+        this.phone = doctorDTO.phone();
+        this.crm = doctorDTO.crm();
+        this.doctorSpecialtyEnum = doctorDTO.specialty();
 
-        if (doctorCreateDTO.address() != null) {
-            this.address = new Address(doctorCreateDTO.address());
+        if (doctorDTO.address() != null) {
+            this.address = new Address(doctorDTO.address());
         }
     }
 }

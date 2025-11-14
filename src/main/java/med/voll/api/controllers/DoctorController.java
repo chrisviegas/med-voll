@@ -1,8 +1,9 @@
 package med.voll.api.controllers;
 
 import jakarta.validation.Valid;
-import med.voll.api.dto.DoctorCreateDTO;
+import med.voll.api.dto.DoctorDTO;
 import med.voll.api.dto.DoctorGetMinDTO;
+import med.voll.api.dto.DoctorUpdateDTO;
 import med.voll.api.services.DoctorService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -19,8 +20,8 @@ public class DoctorController {
     }
 
     @PostMapping("/register")
-    public DoctorCreateDTO create(@RequestBody @Valid DoctorCreateDTO doctorCreateDTO) {
-        return service.create(doctorCreateDTO);
+    public DoctorDTO create(@RequestBody @Valid DoctorDTO doctorDTO) {
+        return service.create(doctorDTO);
     }
 
     @GetMapping
@@ -28,5 +29,11 @@ public class DoctorController {
                                         @RequestParam(defaultValue= "10") int size, Sort sort) {
         return service.getAll(page, size, sort);
     }
+
+    @PatchMapping("/{id}")
+    public DoctorDTO update(@PathVariable Long id, @RequestBody @Valid DoctorUpdateDTO dto) {
+        return service.update(id, dto);
+    }
+
 
 }
