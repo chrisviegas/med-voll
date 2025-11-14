@@ -33,7 +33,7 @@ public class Doctor {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String phone;
 
     @NotBlank
@@ -55,7 +55,7 @@ public class Doctor {
         this.email = doctorCreateDTO.email();
         this.phone = doctorCreateDTO.phone();
         this.crm = doctorCreateDTO.crm();
-        this.doctorSpecialtyEnum = doctorCreateDTO.doctorSpecialtyEnum();
+        this.doctorSpecialtyEnum = doctorCreateDTO.specialty();
 
         if (doctorCreateDTO.address() != null) {
             this.address = new Address(doctorCreateDTO.address());

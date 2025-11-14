@@ -1,5 +1,6 @@
 package med.voll.api.entities;
 
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.Valid;
@@ -20,8 +21,10 @@ public class Address {
     @Column(nullable = false)
     private String street;
 
+    @Column
     private String number;
 
+    @Column
     private String complement;
 
     @NotBlank

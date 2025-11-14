@@ -5,6 +5,7 @@ import med.voll.api.dto.DoctorCreateDTO;
 import med.voll.api.dto.DoctorGetMinDTO;
 import med.voll.api.services.DoctorService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,7 +25,7 @@ public class DoctorController {
 
     @GetMapping
     public Page<DoctorGetMinDTO> getAll(@RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue= "10") int size) {
-        return service.getAll(page, size);
+                                        @RequestParam(defaultValue= "10") int size, Sort sort) {
+        return service.getAll(page, size, sort);
     }
 }
