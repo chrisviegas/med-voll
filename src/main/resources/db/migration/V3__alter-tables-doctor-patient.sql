@@ -1,0 +1,41 @@
+ALTER TABLE tb_doctor
+    MODIFY city VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_patient
+    MODIFY city VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_doctor
+    MODIFY neighborhood VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_patient
+    MODIFY neighborhood VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_doctor
+    MODIFY phone VARCHAR(255) NULL;
+
+ALTER TABLE tb_doctor
+    DROP COLUMN specialty;
+
+ALTER TABLE tb_doctor
+    ADD specialty VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_doctor
+    MODIFY specialty VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_doctor
+    MODIFY state VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_patient
+    MODIFY state VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_doctor
+    MODIFY street VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_patient
+    MODIFY street VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_doctor
+    MODIFY zip VARCHAR(255) NOT NULL;
+
+ALTER TABLE tb_patient
+    MODIFY zip VARCHAR(255) NOT NULL;

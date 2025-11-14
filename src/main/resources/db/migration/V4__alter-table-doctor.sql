@@ -1,0 +1,2 @@
+ALTER TABLE tb_doctor
+    MODIFY phone VARCHAR(255) NOT NULL;
