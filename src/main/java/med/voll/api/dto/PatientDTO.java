@@ -6,6 +6,8 @@ import med.voll.api.entities.Patient;
 
 public record PatientDTO(
 
+        Long id,
+
         @NotBlank
         String name,
 
@@ -23,6 +25,6 @@ public record PatientDTO(
 ) {
 
     public PatientDTO(Patient patient) {
-        this(patient.getName(), patient.getEmail(), patient.getPhone(), patient.getCpf(), new AddressDTO(patient.getAddress()));
+        this(patient.getId(), patient.getName(), patient.getEmail(), patient.getPhone(), patient.getCpf(), new AddressDTO(patient.getAddress()));
     }
 }

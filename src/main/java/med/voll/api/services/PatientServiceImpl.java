@@ -1,5 +1,6 @@
 package med.voll.api.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import med.voll.api.dto.PatientDTO;
 import med.voll.api.dto.PatientGetMinDTO;
 import med.voll.api.dto.PatientUpdateDTO;
@@ -56,6 +57,13 @@ public class PatientServiceImpl implements PatientService {
     public void delete(Long id) {
         Patient patient = repository.getReferenceById(id);
         patient.setActive(false);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PatientDTO getById(Long id) {
+        return repository.findById(id).map(PatientDTO::new)
+        .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
     }
 
 }

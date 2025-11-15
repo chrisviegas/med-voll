@@ -7,7 +7,9 @@ import med.voll.api.dto.PatientUpdateDTO;
 import med.voll.api.services.PatientService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/patients")
@@ -20,23 +22,32 @@ public class PatientController {
     }
 
     @PostMapping("/register")
-    public PatientDTO create(@RequestBody @Valid PatientDTO dto) {
-        return service.create(dto);
+    public ResponseEntity<PatientDTO> create(@RequestBody @Valid PatientDTO patientDTO, UriComponentsBuilder uriComponentsBuilder) {
+        PatientDTO dto = service.create(patientDTO);
+        var uri = uriComponentsBuilder.path("patients/{id}").buildAndExpand(dto.id()).toUri();
+
+        return ResponseEntity.created(uri).body(dto);
     }
 
     @GetMapping
-    public Page<PatientGetMinDTO> getAll(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<PatientGetMinDTO>> getAll(@RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size, Sort sort) {
-        return service.getAll(page, size, sort);
+        return ResponseEntity.ok(service.getAll(page, size, sort));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PatientDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @PatchMapping("/{id}")
-    public PatientDTO update(@PathVariable Long id, @RequestBody @Valid PatientUpdateDTO updateDTO) {
-        return service.update(id, updateDTO);
+    public ResponseEntity<PatientDTO> update(@PathVariable Long id, @RequestBody @Valid PatientUpdateDTO updateDTO) {
+        return ResponseEntity.ok(service.update(id, updateDTO));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
          service.delete(id);
+         return ResponseEntity.noContent().build();
     }
 }

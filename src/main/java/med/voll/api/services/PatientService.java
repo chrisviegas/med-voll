@@ -3,6 +3,7 @@ package med.voll.api.services;
 import med.voll.api.dto.PatientDTO;
 import med.voll.api.dto.PatientGetMinDTO;
 import med.voll.api.dto.PatientUpdateDTO;
+import med.voll.api.entities.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
@@ -15,4 +16,6 @@ public interface PatientService {
     PatientDTO update(Long id, PatientUpdateDTO updateDTO);
 
     void delete(Long id);
+
+    PatientDTO getById(Long id);
 }
