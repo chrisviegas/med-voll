@@ -13,4 +13,6 @@ public interface PatientService {
     Page<PatientGetMinDTO> getAll(int page, int size, Sort sort);
 
     PatientDTO update(Long id, PatientUpdateDTO updateDTO);
+
+    void delete(Long id);
 }

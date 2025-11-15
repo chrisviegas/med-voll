@@ -22,6 +22,9 @@ public class Patient {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    @NotNull
+    private boolean isActive = true;
+
     @NotBlank
     @Column(nullable = false)
     private String name;

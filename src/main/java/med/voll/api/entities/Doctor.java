@@ -23,6 +23,7 @@ public class Doctor {
     @Setter(AccessLevel.NONE)
     private Long id;
 
+    @NotNull
     private boolean isActive = true;
 
     @NotBlank

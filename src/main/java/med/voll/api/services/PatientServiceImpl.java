@@ -35,7 +35,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional(readOnly = true)
     public Page<PatientGetMinDTO> getAll(int page, int size, Sort sort) {
-        return repository.findAll(PageRequest.of(page, size, sort)).map(PatientGetMinDTO::new);
+        return repository.findAllByIsActiveTrue(PageRequest.of(page, size, sort)).map(PatientGetMinDTO::new);
     }
 
     @Override
@@ -51,4 +51,12 @@ public class PatientServiceImpl implements PatientService {
         return new PatientDTO(patient);
     }
 
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        Patient patient = repository.getReferenceById(id);
+        patient.setActive(false);
+    }
+
 }
+

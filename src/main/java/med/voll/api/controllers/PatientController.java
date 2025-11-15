@@ -31,7 +31,12 @@ public class PatientController {
     }
 
     @PatchMapping("/{id}")
-    public PatientDTO update(@PathVariable Long id, @RequestBody PatientUpdateDTO updateDTO) {
+    public PatientDTO update(@PathVariable Long id, @RequestBody @Valid PatientUpdateDTO updateDTO) {
         return service.update(id, updateDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+         service.delete(id);
     }
 }
