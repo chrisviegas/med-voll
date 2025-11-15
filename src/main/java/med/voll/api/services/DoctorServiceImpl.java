@@ -1,10 +1,9 @@
 package med.voll.api.services;
 
-import med.voll.api.dto.AddressDTO;
+import jakarta.persistence.EntityNotFoundException;
 import med.voll.api.dto.DoctorDTO;
 import med.voll.api.dto.DoctorGetMinDTO;
 import med.voll.api.dto.DoctorUpdateDTO;
-import med.voll.api.entities.Address;
 import med.voll.api.entities.Doctor;
 import med.voll.api.repositories.DoctorRepository;
 import med.voll.api.services.util.AddressUpdateHelper;
@@ -58,5 +57,13 @@ public class DoctorServiceImpl implements DoctorService {
     public void delete(Long id) {
         Doctor doctor = repository.getReferenceById(id);
         doctor.setActive(false);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DoctorDTO getById(Long id) {
+        return repository.findById(id).map(DoctorDTO::new)
+                .orElseThrow(() -> new EntityNotFoundException("Doctor not found"));
+
     }
 }

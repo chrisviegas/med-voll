@@ -2,6 +2,7 @@ package med.voll.api.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import med.voll.api.entities.Doctor;
 import med.voll.api.enums.DoctorSpecialtyEnum;
 
@@ -21,7 +22,7 @@ public record DoctorDTO(
         @NotBlank
         String crm,
 
-        @NotBlank
+        @NotNull
         DoctorSpecialtyEnum specialty,
 
         @Valid

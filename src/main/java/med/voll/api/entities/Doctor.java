@@ -44,6 +44,7 @@ public class Doctor {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "specialty", nullable = false)
+    @NotNull
     private DoctorSpecialtyEnum doctorSpecialtyEnum;
 
     @Embedded
