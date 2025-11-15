@@ -36,7 +36,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Transactional(readOnly = true)
     @Override
     public Page<DoctorGetMinDTO> getAll(int page, int size, Sort sort) {
-        return repository.findAll(PageRequest.of(page, size, sort)).map(DoctorGetMinDTO::new);
+        return repository.findAllByIsActiveTrue(PageRequest.of(page, size, sort)).map(DoctorGetMinDTO::new);
     }
 
     @Transactional
@@ -50,6 +50,13 @@ public class DoctorServiceImpl implements DoctorService {
                 .ifPresent(addressDto -> updateAddress(doctor.getAddress(), addressDto));
 
         return new DoctorDTO(doctor);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+        Doctor doctor = repository.getReferenceById(id);
+        doctor.setActive(false);
     }
 
     private void updateAddress(Address address, AddressDTO dto) {

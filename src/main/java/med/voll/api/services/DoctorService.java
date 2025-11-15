@@ -13,4 +13,6 @@ public interface DoctorService {
     Page<DoctorGetMinDTO> getAll(int page, int size, Sort sort);
 
     DoctorDTO update(Long id,DoctorUpdateDTO dto);
+
+    void delete(Long id);
 }
