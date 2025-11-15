@@ -1,14 +1,13 @@
 package med.voll.api.controllers;
 
 import jakarta.validation.Valid;
-import med.voll.api.dto.PatientCreateDTO;
+import med.voll.api.dto.PatientDTO;
 import med.voll.api.dto.PatientGetMinDTO;
-import med.voll.api.repositories.PatientRepository;
+import med.voll.api.dto.PatientUpdateDTO;
 import med.voll.api.services.PatientService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.GetExchange;
 
 @RestController
 @RequestMapping("/patients")
@@ -21,7 +20,7 @@ public class PatientController {
     }
 
     @PostMapping("/register")
-    public PatientCreateDTO create(@RequestBody @Valid PatientCreateDTO dto) {
+    public PatientDTO create(@RequestBody @Valid PatientDTO dto) {
         return service.create(dto);
     }
 
@@ -29,5 +28,10 @@ public class PatientController {
     public Page<PatientGetMinDTO> getAll(@RequestParam(defaultValue = "0") int page,
                                          @RequestParam(defaultValue = "10") int size, Sort sort) {
         return service.getAll(page, size, sort);
+    }
+
+    @PatchMapping("/{id}")
+    public PatientDTO update(@PathVariable Long id, @RequestBody PatientUpdateDTO updateDTO) {
+        return service.update(id, updateDTO);
     }
 }

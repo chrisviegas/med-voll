@@ -1,15 +1,19 @@
 package med.voll.api.services;
 
-import med.voll.api.dto.PatientCreateDTO;
+import med.voll.api.dto.PatientDTO;
 import med.voll.api.dto.PatientGetMinDTO;
+import med.voll.api.dto.PatientUpdateDTO;
 import med.voll.api.entities.Patient;
 import med.voll.api.repositories.PatientRepository;
+import med.voll.api.services.util.AddressUpdateHelper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Primary
@@ -23,9 +27,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public PatientCreateDTO create(PatientCreateDTO dto) {
+    public PatientDTO create(PatientDTO dto) {
         Patient patient = repository.save(new Patient(dto));
-        return new PatientCreateDTO(patient);
+        return new PatientDTO(patient);
     }
 
     @Override
@@ -33,4 +37,18 @@ public class PatientServiceImpl implements PatientService {
     public Page<PatientGetMinDTO> getAll(int page, int size, Sort sort) {
         return repository.findAll(PageRequest.of(page, size, sort)).map(PatientGetMinDTO::new);
     }
+
+    @Override
+    @Transactional
+    public PatientDTO update(Long id, PatientUpdateDTO dto) {
+        Patient patient = repository.getReferenceById(id);
+
+        Optional.ofNullable(dto.name()).ifPresent(patient::setName);
+        Optional.ofNullable(dto.phone()).ifPresent(patient::setPhone);
+        Optional.ofNullable(dto.address())
+                .ifPresent(addressDto -> AddressUpdateHelper.updateAddress(patient.getAddress(), addressDto));
+
+        return new PatientDTO(patient);
+    }
+
 }

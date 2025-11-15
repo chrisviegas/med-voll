@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import med.voll.api.entities.Patient;
 
-public record PatientCreateDTO(
+public record PatientDTO(
 
         @NotBlank
         String name,
@@ -22,7 +22,7 @@ public record PatientCreateDTO(
         AddressDTO address
 ) {
 
-    public PatientCreateDTO(Patient patient) {
+    public PatientDTO(Patient patient) {
         this(patient.getName(), patient.getEmail(), patient.getPhone(), patient.getCpf(), new AddressDTO(patient.getAddress()));
     }
 }

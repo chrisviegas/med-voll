@@ -7,6 +7,7 @@ import med.voll.api.dto.DoctorUpdateDTO;
 import med.voll.api.entities.Address;
 import med.voll.api.entities.Doctor;
 import med.voll.api.repositories.DoctorRepository;
+import med.voll.api.services.util.AddressUpdateHelper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,7 +48,7 @@ public class DoctorServiceImpl implements DoctorService {
         Optional.ofNullable(dto.name()).ifPresent(doctor::setName);
         Optional.ofNullable(dto.phone()).ifPresent(doctor::setPhone);
         Optional.ofNullable(dto.address())
-                .ifPresent(addressDto -> updateAddress(doctor.getAddress(), addressDto));
+                .ifPresent(addressDto -> AddressUpdateHelper.updateAddress(doctor.getAddress(), addressDto));
 
         return new DoctorDTO(doctor);
     }
@@ -57,15 +58,5 @@ public class DoctorServiceImpl implements DoctorService {
     public void delete(Long id) {
         Doctor doctor = repository.getReferenceById(id);
         doctor.setActive(false);
-    }
-
-    private void updateAddress(Address address, AddressDTO dto) {
-        Optional.ofNullable(dto.street()).ifPresent(address::setStreet);
-        Optional.ofNullable(dto.number()).ifPresent(address::setNumber);
-        Optional.ofNullable(dto.complement()).ifPresent(address::setComplement);
-        Optional.ofNullable(dto.neighborhood()).ifPresent(address::setNeighborhood);
-        Optional.ofNullable(dto.city()).ifPresent(address::setCity);
-        Optional.ofNullable(dto.state()).ifPresent(address::setState);
-        Optional.ofNullable(dto.zip()).ifPresent(address::setZip);
     }
 }

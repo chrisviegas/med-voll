@@ -5,15 +5,13 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import med.voll.api.dto.PatientCreateDTO;
+import lombok.*;
+import med.voll.api.dto.PatientDTO;
 
 @Entity
 @Table(name = "tb_patient")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -21,6 +19,7 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @NotBlank
@@ -46,7 +45,7 @@ public class Patient {
     @Column(nullable = false)
     private Address address;
 
-    public Patient(PatientCreateDTO dto) {
+    public Patient(PatientDTO dto) {
         this.name = dto.name();
         this.email = dto.email();
         this.phone = dto.phone();
